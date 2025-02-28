@@ -252,8 +252,16 @@ import time
 client_id = "Dhan Client ID"
 access_token = "Access Token"
 
+def on_order_update(order_data: dict):
+    """Optional callback function to process order data"""
+    print(order_data["Data"])
+
 def run_order_update():
     order_client = orderupdate.OrderSocket(client_id, access_token)
+
+    # Optional: Attach a callback function to receive and process order data.
+    order_client.on_update = on_order_update
+
     while True:
         try:
             order_client.connect_to_dhan_websocket_sync()
